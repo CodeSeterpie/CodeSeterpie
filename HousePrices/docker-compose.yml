@@ -1,0 +1,18 @@
+version: "3"
+services:
+    # コンテナの名称を設定
+    jupyter:
+        # 同じフォルダにあるDockerfileをビルドする。
+        build: .
+        # マウントするフォルダを設定。現在のフォルダをDockerコンテナ上の/tmp/workingに紐づける。
+        volumes:
+            - $PWD:/tmp/working
+        # コンテナ内の初期ディレクトリを設定
+        working_dir: /tmp/working
+        # ポートフォワードの設定。手元のポート:コンテナのポート
+        ports:
+            - 8888:8888
+        # Dockerコンテナを起動したときに走るコマンド
+        command: jupyter notebook --ip=0.0.0.0 --allow-root --no-browser
+
+
