@@ -1,1 +1,2 @@
-FROM kaggle/python
+FROM jupyter/tensorflow-notebook 
+RUN pip install xgboost
