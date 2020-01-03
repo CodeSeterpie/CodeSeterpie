@@ -13,6 +13,10 @@ services:
         ports:
             - 8888:8888
         # Dockerコンテナを起動したときに走るコマンド
+        #   --ip=0.0.0.0   Jupyter Notebookにコンテナ外からアクセスできるようにするオプション。
+        #   --allow-root   ルートでの実行を許可するオプション。Dockerコンテナはデフォルトでルート
+        #                  権限で起動するため必要
+        #   --no-browser   Jupyter Notebook起動時にブラウザを立ち上げないオプション。
         command: jupyter notebook --ip=0.0.0.0 --allow-root --no-browser
 
 
