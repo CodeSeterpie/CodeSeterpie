@@ -44,8 +44,24 @@ Error with pre-create check: "This computer doesn't have VT-X/AMD-v enabled. Ena
   * https://www.sourcetreeapp.com/
 
 ### 環境を動かす方法
-
-
+#### Jupyter notebookの起動
+このGithubのレポジトリをpullした後、コマンドライン(Docker Toolboxの場合はDocker QuickStart Terminal)で下のコマンドを実行してカレントディレクトリを変更する。
+```
+cd [レポジトリをpullしたフォルダ]/HousePrices
+```
+Dockerのコンテナを起動するため、下のコマンドを実行する。
+```
+docker-compose up --build
+```
+しばらくすると下のようなURLが表示されるので、http://127.0.0.1:8888の方をコピーする。
+```
+To access the notebook, open this file in a browser:
+    file:///home/jovyan/.local/share/jupyter/runtime/nbserver-7-open.html
+Or copy and paste one of these URLs:
+   http://dd918a6f7127:8888/?token=b059d85a3002c54cd20d4ff7292077145b19667f80198e1e
+or http://127.0.0.1:8888/?token=b059d85a3002c54cd20d4ff7292077145b19667f80198e1e
+```
+ブラウザのURL入力欄にコピーしたURLを貼り付けてJupyter Notebookを開く。(開けなかったら127.0.0.1をlocalhostに変更して再度開く。)
 
 #### Docker Toolboxを停止する方法
 コンテナを全て停止させた後、下のコマンドを実行する。
