@@ -18,8 +18,7 @@ __【注意】__ インストーラなどの容量が大きいファイル（数
 #### Windows 10 Pro, Macの場合
 Docker Desktopをインストールする。 インストーラのダウンロードは[ここ](https://www.docker.com/products/docker-desktop)から。 
 #### Windows 10 Homeの場合
-Docker Toolboxをインストールする。
-
+Docker Toolboxをインストールする。単純なインストールではJupyter notebookが動作しないため、下の手順でインストールする。
 
 インストール手順
 1. [ここ](https://github.com/docker/toolbox/releases)から最新のVersionのexeファイルをダウンロードして、ローカルでダブルクリックする。
