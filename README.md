@@ -22,7 +22,21 @@ Docker Toolboxをインストールする。単純なインストールではJup
 
 インストール手順
 1. [ここ](https://github.com/docker/toolbox/releases)から最新のVersionのexeファイルをダウンロードして、ローカルでダブルクリックする。
-1. インストールが完了したら、Docker QuickStart Terminalを起動する。自動で初期設定が行われるため完了するまで待つ。
+1. インストールが完了したら、Docker QuickStart Terminalを起動する。自動で初期設定が行われるため完了するまで待つ。  
+
+    自動初期設定時に下のエラーが表示される場合がある。
+
+    ```
+    Running pre-create checks... 
+    Error with pre-create check: "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory" 
+    ``` 
+
+   エラーが表示された場合、コマンドプロンプトで(Docker QuickStart Terminalではない)下のコマンドを実行する。
+
+    ```
+    docker-machine create default --virtualbox-no-vtx-check 
+    ```
+
 1. Oracle VM VirtualBoxマネージャーを開き、 今回作成した仮想環境(名前はdefault)を選択後、設定をクリックして設定画面を開く。
 1. ネットワークを選択し、高度をクリックする。ポートフォワーディングボタンが表示されるので、クリックしてポートフォワーディングルール画面を開く。
 1. プラスボタンをクリックしてルールを追加する。設定は下の通り。
@@ -31,19 +45,7 @@ Docker Toolboxをインストールする。単純なインストールではJup
     |:---|:---|:---|:---|:---|:---|
     |任意|TCP|127.0.0.1|8888|空白|8888|
 
-トラブルシューティング
-* 手順の詳細は[本家HP](https://docs.docker.com/toolbox/toolbox_install_windows/)を参照。
-* Docker QuickStart Terminalの初回起動時に下のエラーが発生した場合
-
-  ```
-  Running pre-create checks... 
-  Error with pre-create check: "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory" 
-  ``` 
-  * コマンドプロンプトで(Docker QuickStart Terminalではない)下のコマンドを実行する。
-
-    ```
-    docker-machine create default --virtualbox-no-vtx-check 
-    ```
+参考HP [Install Docker Toolbox on Windows](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
 ## 環境を動かす方法
 ### Jupyter notebookの起動
