@@ -7,13 +7,16 @@ services:
             .
         # マウントするフォルダを設定。現在のフォルダをDockerコンテナ上の/tmp/workingに紐づける。
         volumes:
-            - $PWD:/tmp/working
+            - $PWD:/kaggle
         # コンテナ内の初期ディレクトリを設定
         working_dir: 
-            /tmp/working
+            /kaggle
         # ポートフォワードの設定。手元のポート:コンテナのポート
         ports:
             - 8888:8888
+        # コンテナ内のTime zoneを日本時間に設定
+        environment:
+            - "TZ=Japan"        
         # Dockerコンテナを起動したときに走るコマンド
         #   --ip=0.0.0.0   Jupyter Notebookにコンテナ外からアクセスできるようにするオプション。
         #   --allow-root   ルートでの実行を許可するオプション。Dockerコンテナはデフォルトでルート
