@@ -2,6 +2,9 @@ version: "3"
 services:
     # コンテナの名称を設定
     jupyter:
+        # コンテナ名を明示的に指定する
+        container_name:
+           houseprices_jupyter 
         # 同じフォルダにあるDockerfileをビルドする。
         build: 
             .

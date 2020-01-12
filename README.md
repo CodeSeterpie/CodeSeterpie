@@ -67,8 +67,11 @@ or http://127.0.0.1:8888/?token=b059d85a3002c54cd20d4ff7292077145b19667f80198e1e
 ```
 ブラウザのURL入力欄にコピーしたURLを貼り付けてJupyter Notebookを開く。(開けなかったら127.0.0.1をlocalhostに変更して再度開く。)
 
-### Docker Toolboxを停止する方法
-コンテナを全て停止させた後、下のコマンドを実行する。
+### Jupyter notebookの停止
+コマンドライン(Docker Toolboxの場合はDocker QuickStart Terminal)で`Ctl`+`C`を押す。  
+
+### Docker ToolboxでVirtual Boxの仮想環境をを停止する方法
+Docker Toolboxを使用している場合、Jupyter notebookを止めただけでは、Virtual Box上の仮想環境が停止しないため、コンテナを全て停止させた後、下のコマンドを実行する。
 ```
 docker-machine.exe stop
 ```
