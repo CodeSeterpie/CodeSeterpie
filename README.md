@@ -1,3 +1,9 @@
+# Overview
+活動記録、ナレッジベースについては[Wiki](https://github.com/uragami-lab/Kaggle/wiki)にあります。  
+課題、質問、やってみたい事については[Issues](https://github.com/uragami-lab/Kaggle/issues)に挙げてください。
+
+環境構築については下を参照してください。
+
 # 環境構築
 このグループでKaggleを行うにあたり、必要な環境を構築します。実行環境としてはDockerを用いたコンテナにjupyter notebookが動く環境を構築します。
 
@@ -71,7 +77,7 @@ or http://127.0.0.1:8888/?token=b059d85a3002c54cd20d4ff7292077145b19667f80198e1e
 コマンドライン(Docker Toolboxの場合はDocker QuickStart Terminal)で`Ctl`+`C`を押す。  
 
 ### Docker ToolboxでVirtual Boxの仮想環境をを停止する方法
-Docker Toolboxを使用している場合、Jupyter notebookを止めただけでは、Virtual Box上の仮想環境が停止しないため、コンテナを全て停止させた後、下のコマンドを実行する。
+Docker Toolboxを使用している場合、Jupyter notebookを止めただけでは Virtual Box上の仮想環境が停止しない。仮想環境を停止させるためには、コンテナを全て停止させた後、下のコマンドを実行する。
 ```
 docker-machine.exe stop
 ```
