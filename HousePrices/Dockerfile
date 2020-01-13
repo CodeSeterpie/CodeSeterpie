@@ -3,6 +3,7 @@ FROM jupyter/tensorflow-notebook
 
 # 不足しているライブラリを追加インストール
 RUN pip install xgboost
+RUN pip install pandas_profiling
 
 # Jupyterの拡張機能を有効化する
 USER jovyan
