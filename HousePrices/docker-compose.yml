@@ -26,6 +26,6 @@ services:
         #                  権限で起動するため必要
         #   --no-browser   Jupyter Notebook起動時にブラウザを立ち上げないオプション。
         command:
-            jupyter notebook --ip=0.0.0.0 --allow-root --no-browser
+            start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser
 
 
