@@ -4,6 +4,9 @@
 
 環境構築については下を参照してください。
 
+# データ分析の流れ
+<img src="https://github.com/CodeSeterpie/Kaggle/blob/develop/images/データ分析の流れ.jpg" width="360">
+
 # 環境構築
 このグループでKaggleを行うにあたり、必要な環境を構築します。実行環境としてはDockerを用いたコンテナにjupyter notebookが動く環境を構築します。
 
@@ -35,7 +38,7 @@ Docker Toolboxをインストールする。単純なインストールではJup
     ```
     Running pre-create checks... 
     Error with pre-create check: "This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory" 
-    ``` 
+    ```
 
    エラーが表示された場合、コマンドプロンプトで(Docker QuickStart Terminalではない)下のコマンドを実行する。
 
