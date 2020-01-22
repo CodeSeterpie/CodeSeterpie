@@ -2,7 +2,7 @@
 活動記録、ナレッジベースについては[Wiki](https://github.com/uragami-lab/Kaggle/wiki)にあります。  
 課題、質問、やってみたい事については[Issues](https://github.com/uragami-lab/Kaggle/issues)に挙げてください。
 
-環境構築については下を参照してください。
+実行環境の構築方法については下の[環境構築](#環境構築)を参照してください。
 
 # データ分析の流れ
 <img src="https://github.com/CodeSeterpie/Kaggle/blob/develop/images/データ分析の流れ.jpg" width="360">
