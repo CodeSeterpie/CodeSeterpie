@@ -2,9 +2,12 @@ version: "3"
 services:
     # コンテナの名称を設定
     jupyter:
+        # イメージ名を明示的に指定する
+        image:
+           kaggle_houseprices 
         # コンテナ名を明示的に指定する
         container_name:
-           houseprices_jupyter 
+           kaggle_houseprices 
         # 同じフォルダにあるDockerfileをビルドする。
         build: 
             .
