@@ -3,7 +3,7 @@
 課題、質問、やってみたい事については[Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)に挙げてください。  
 現在の目標については[Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)を見てください。
 
-ソースの変更はdevelopブランチに直接pushしてもらって構いません。
+ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
 他の人に影響が出る変更を行う場合は、`[ユーザ名]/[任意の名前]`のブランチを切って変更を行い、pull requestを出してください。
 
 実行環境の構築方法については下の[環境構築](#環境構築)を参照してください。  
