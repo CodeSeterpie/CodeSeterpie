@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+
+  jupyter:
+
+    image: kaggle_houseprices
+
+    container_name: Kaggle_houseprices
+
+    build: .
+
+    user: root
+
+    working_dir: /kaggle
+
+    volumes:
+      - ./:/kaggle
+      - ./notebook/suzucan2020/jupyter/lab/user-settings:/home/jovyan/.jupyter/lab/user-settings
+
+    ports:
+      - 8888:8888
+
+    environment:
+      - "TZ=Japan"
+
+    command: start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser

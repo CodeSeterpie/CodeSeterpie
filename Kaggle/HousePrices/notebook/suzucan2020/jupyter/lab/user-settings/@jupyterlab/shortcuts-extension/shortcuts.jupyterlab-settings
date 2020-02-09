@@ -1,0 +1,18 @@
+{  
+  "shortcuts": [  
+      {  
+          "command": "jupyterlab_code_formatter:autopep8",  
+          "keys": [  
+              "Ctrl B"  
+          ],  
+          "selector": ".jp-Notebook.jp-mod-editMode"  
+      },  
+      {  
+          "command": "filemenu:shutdown",  
+          "keys": [  
+              "Ctrl Q"  
+          ],  
+          "selector": "body"  
+      }  
+  ]  
+}

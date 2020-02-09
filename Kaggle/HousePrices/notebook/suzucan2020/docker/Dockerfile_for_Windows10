@@ -1,0 +1,22 @@
+FROM jupyter/datascience-notebook
+
+#RUN conda install -c conda-forge nodejs
+#RUN pip install --upgrade pip
+##RUN pip install jupyterlab
+#RUN pip install --pre jupyter-lsp
+##RUN jupyter serverextension enable --py jupyterlab
+#RUN jupyter labextension install @krassowski/jupyterlab-lsp
+#RUN conda install -c conda-forge python-language-server
+#RUN jupyter lab build
+#RUN pip install 'python-language-server[all]'
+#RUN pip install --pre jupyter-lsp
+
+RUN pip install flake8
+RUN jupyter labextension install jupyterlab-flake8
+
+RUN pip install black
+RUN pip install yapf
+RUN pip install autopep8
+RUN pip install jupyterlab_code_formatter
+RUN jupyter labextension install @ryantam626/jupyterlab_code_formatter
+RUN jupyter serverextension enable --py jupyterlab_code_formatter
