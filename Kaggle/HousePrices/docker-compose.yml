@@ -11,9 +11,12 @@ services:
         # 同じフォルダにあるDockerfileをビルドする。
         build: 
             .
-        # マウントするフォルダを設定。現在のフォルダをDockerコンテナ上の/tmp/workingに紐づける。
+        # マウントするフォルダを設定。
         volumes:
+            # 現在のフォルダをDockerコンテナ上のkaggleフォルダに紐づける。 
             - $PWD:/kaggle
+            # 現在のフォルダ/.user-settingsをコンテナ上のjupyter labのユーザ設定フォルダに紐づける。
+            - $PWD/.user-settings:/home/jovyan/.jupyter/lab/user-settings
         # コンテナ内の初期ディレクトリを設定
         working_dir: 
             /kaggle
