@@ -1,14 +1,29 @@
 <img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/SocialPreview.jpeg">
 
 # Overview
-活動記録、ナレッジベースについては[Wiki](https://github.com/CodeSeterpie/CodeSeterpie/wiki)にあります。  
-課題、質問、やってみたい事については[Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)に挙げてください。  
-現在の目標については[Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)を見てください。
+このグループはGoogleの子会社が運営するAIのコンペティションプラットフォーム『Kaggle（カグル）』に、プライベートで参加している素人集団です。Kaggleへの参加を通して「AIの技術力（知識と経験）の向上」と「新たな仲間づくり」を目的としています。
 
+素人集団なので
+
+* みんなで１つの目標に向かって
+
+* みんなで勉強して
+
+* みんなで解決します
+
+## Menu
+* [Wiki](https://github.com/CodeSeterpie/CodeSeterpie/wiki)  
+  活動記録、ナレッジベース
+* [Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)  
+  課題、質問、やってみたい事
+* [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
+  現在の目標
+* [環境構築](#環境構築)  
+  実行環境の構築方法
+
+## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
 他の人に影響が出る変更を行う場合は、`[ユーザ名]/[任意の名前]`のブランチを切って変更を行い、pull requestを出してください。
-
-実行環境の構築方法については下の[環境構築](#環境構築)を参照してください。  
 
 # 環境構築
 このグループでKaggleを行うにあたり、必要な環境を構築します。実行環境としてはDockerを用いたコンテナにjupyter notebookが動く環境を構築します。
