@@ -1,3 +1,5 @@
+<img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/SocialPreview.jpeg">
+
 # Overview
 活動記録、ナレッジベースについては[Wiki](https://github.com/CodeSeterpie/CodeSeterpie/wiki)にあります。  
 課題、質問、やってみたい事については[Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)に挙げてください。  
@@ -7,9 +9,6 @@
 他の人に影響が出る変更を行う場合は、`[ユーザ名]/[任意の名前]`のブランチを切って変更を行い、pull requestを出してください。
 
 実行環境の構築方法については下の[環境構築](#環境構築)を参照してください。  
-
-# データ分析の流れ
-<img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/データ分析の流れ.jpg" width="360">
 
 # 環境構築
 このグループでKaggleを行うにあたり、必要な環境を構築します。実行環境としてはDockerを用いたコンテナにjupyter notebookが動く環境を構築します。
