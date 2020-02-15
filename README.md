@@ -1,6 +1,6 @@
 <img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/SocialPreview.jpeg">
 
-# Overview
+## CodeSeterpie(コードセタピー)とは
 このグループはGoogleの子会社が運営するAIのコンペティションプラットフォーム『Kaggle（カグル）』に、プライベートで参加している素人集団です。Kaggleへの参加を通して「AIの技術力（知識と経験）の向上」と「新たな仲間づくり」を目的としています。
 
 素人集団なので
