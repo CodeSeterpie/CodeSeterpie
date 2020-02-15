@@ -132,3 +132,22 @@ dmypy.json
 # 例外として、.gitkeepはディレクトリ確保のため除外しない
 /Kaggle/HousePrices/.user-settings/*
 !/Kaggle/HousePrices/.user-settings/.gitkeep
+
+# extensionmanagerの設定ファイル
+!/Kaggle/HousePrices/.user-settings/@jupyterlab/
+/Kaggle/HousePrices/.user-settings/@jupyterlab/*
+!/Kaggle/HousePrices/.user-settings/@jupyterlab/extensionmanager-extension/
+/Kaggle/HousePrices/.user-settings/@jupyterlab/extensionmanager-extension/*
+!/Kaggle/HousePrices/.user-settings/@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+
+# 自動整形の設定ファイル
+!/Kaggle/HousePrices/.user-settings/@ryantam626/
+/Kaggle/HousePrices/.user-settings/@ryantam626/*
+!/Kaggle/HousePrices/.user-settings/@ryantam626/jupyterlab_code_formatter/
+/Kaggle/HousePrices/.user-settings/@ryantam626/jupyterlab_code_formatter/*
+!/Kaggle/HousePrices/.user-settings/@ryantam626/jupyterlab_code_formatter/settings.jupyterlab-settings
+
+# リント機能の設定ファイル
+!/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/
+/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/*
+!/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/plugins.jupyterlab-settings
