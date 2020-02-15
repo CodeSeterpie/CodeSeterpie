@@ -21,8 +21,6 @@
   現在の目標
 * [Insights](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
   活動状況のサマリー
-* [環境構築](#環境構築)  
-  実行環境の構築方法
 
 ## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
