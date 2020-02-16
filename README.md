@@ -19,8 +19,11 @@
   課題、質問、やってみたい事
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
   現在の目標
-* [Insights](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
+* [Pulse](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
   活動状況のサマリー
+* [Contributors](https://github.com/CodeSeterpie/CodeSeterpie/graphs/contributors)  
+  Codeへの貢献度
+
 
 ## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
