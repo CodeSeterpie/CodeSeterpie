@@ -28,3 +28,8 @@
 ## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
 他の人に影響が出る変更を行う場合は、`[ユーザ名]/[任意の名前]`のブランチを切って変更を行い、pull requestを出してください。
+
+## メンバーが活動した時に通知を受ける方法
+画面上部の`Watch`ボタンを押して`Watching`を選択すると、メンバーがissuesを作成した時、Pull Requestを作成した時、またはそれらに対しコメントしたときにメール通知されるようになります。
+
+<img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/github/watching.jpg" width="300">
