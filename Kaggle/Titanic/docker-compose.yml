@@ -1,0 +1,39 @@
+version: "3"
+services:
+    # コンテナの名称を設定
+    jupyter:
+        # イメージ名を明示的に指定する
+        image:
+           kaggle_titanic 
+        # コンテナ名を明示的に指定する
+        container_name:
+           kaggle_titanic 
+        # 同じフォルダにあるDockerfileをビルドする。
+        build: 
+            .
+        # マウントするフォルダを設定。
+        volumes:
+            # 現在のフォルダをDockerコンテナ上のkaggleフォルダに紐づける。 
+            - ./:/kaggle
+            # 現在のフォルダ/.user-settingsをコンテナ上のjupyter labのユーザ設定フォルダに紐づける。
+            - ./.user-settings:/home/jovyan/.jupyter/lab/user-settings
+
+
+        # コンテナ内の初期ディレクトリを設定
+        working_dir: 
+            /kaggle
+        # ポートフォワードの設定。手元のポート:コンテナのポート
+        ports:
+            - 7777:8888
+        # コンテナ内のTime zoneを日本時間に設定
+        environment:
+            - "TZ=Japan"        
+        # Dockerコンテナを起動したときに走るコマンド
+        #   --ip=0.0.0.0   Jupyter Notebookにコンテナ外からアクセスできるようにするオプション。
+        #   --allow-root   ルートでの実行を許可するオプション。Dockerコンテナはデフォルトでルート
+        #                  権限で起動するため必要
+        #   --no-browser   Jupyter Notebook起動時にブラウザを立ち上げないオプション。
+        command:
+            start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser
+
+
