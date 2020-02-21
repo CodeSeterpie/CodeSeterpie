@@ -24,7 +24,7 @@ services:
             /kaggle
         # ポートフォワードの設定。手元のポート:コンテナのポート
         ports:
-            - 7777:8888
+            - 8881:8881
         # コンテナ内のTime zoneを日本時間に設定
         environment:
             - "TZ=Japan"        
@@ -33,7 +33,8 @@ services:
         #   --allow-root   ルートでの実行を許可するオプション。Dockerコンテナはデフォルトでルート
         #                  権限で起動するため必要
         #   --no-browser   Jupyter Notebook起動時にブラウザを立ち上げないオプション。
+        #   --port         Jupyterを起動するときのポート番号を指定
         command:
-            start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser
+            start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser --port=8881
 
 
