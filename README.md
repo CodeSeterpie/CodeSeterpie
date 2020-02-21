@@ -18,7 +18,7 @@
 * [Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)  
   課題、質問、やってみたい事
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
-  現在の目標
+  現在の目標とそれに対する課題
 * [Pulse](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
   活動状況のサマリー
 * [Contributors](https://github.com/CodeSeterpie/CodeSeterpie/graphs/contributors)  
