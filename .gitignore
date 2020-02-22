@@ -128,6 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+############################################################
+# Kaggle/HousePrices
+############################################################
+
 # Kaggle/HousePricesのユーザー設定を除外
 # 例外として、.gitkeepはディレクトリ確保のため除外しない
 /Kaggle/HousePrices/.user-settings/*
@@ -151,3 +155,31 @@ dmypy.json
 !/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/
 /Kaggle/HousePrices/.user-settings/jupyterlab-flake8/*
 !/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/plugins.jupyterlab-settings
+
+############################################################
+# Kaggle/Titanic
+############################################################
+
+# Kaggle/Titanicのユーザー設定を除外
+# 例外として、.gitkeepはディレクトリ確保のため除外しない
+/Kaggle/Titanic/.user-settings/*
+!/Kaggle/Titanic/.user-settings/.gitkeep
+
+# extensionmanagerの設定ファイル
+!/Kaggle/Titanic/.user-settings/@jupyterlab/
+/Kaggle/Titanic/.user-settings/@jupyterlab/*
+!/Kaggle/Titanic/.user-settings/@jupyterlab/extensionmanager-extension/
+/Kaggle/Titanic/.user-settings/@jupyterlab/extensionmanager-extension/*
+!/Kaggle/Titanic/.user-settings/@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+
+# 自動整形の設定ファイル
+!/Kaggle/Titanic/.user-settings/@ryantam626/
+/Kaggle/Titanic/.user-settings/@ryantam626/*
+!/Kaggle/Titanic/.user-settings/@ryantam626/jupyterlab_code_formatter/
+/Kaggle/Titanic/.user-settings/@ryantam626/jupyterlab_code_formatter/*
+!/Kaggle/Titanic/.user-settings/@ryantam626/jupyterlab_code_formatter/settings.jupyterlab-settings
+
+# リント機能の設定ファイル
+!/Kaggle/Titanic/.user-settings/jupyterlab-flake8/
+/Kaggle/Titanic/.user-settings/jupyterlab-flake8/*
+!/Kaggle/Titanic/.user-settings/jupyterlab-flake8/plugins.jupyterlab-settings
