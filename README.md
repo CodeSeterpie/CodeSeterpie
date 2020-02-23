@@ -24,6 +24,17 @@
 * [Contributors](https://github.com/CodeSeterpie/CodeSeterpie/graphs/contributors)  
   Codeへの貢献度
 
+## Docker(ドッカー)とは
+
+Docker（ドッカー）とは、Docker, Inc.によって開発された非常に軽量なコンテナ型の仮想アプリケーション実行環境です。
+
+<img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/github/docker_image.jpg">
+
+## JupyterLab(ジュピターラボ)とは
+
+JupyterLab(ジュピターラボ)とはブラウザで動作するプログラムの対話型実行環境です。 ノートブックと呼ばれるドキュメントを作成し、プログラムの記述と実行、メモの作成、保存と共有などをブラウザ上で行うことができます。
+
+<img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/github/jupyter_image.jpg">
 
 ## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
