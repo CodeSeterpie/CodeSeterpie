@@ -28,7 +28,13 @@
 
 ## Docker(ドッカー)とは
 
-Docker（ドッカー）とは、Docker, Inc.によって開発された非常に軽量なコンテナ型の仮想アプリケーション実行環境です。
+Docker（ドッカー）とは、Docker, Inc.によって開発された非常に軽量なコンテナ型の仮想アプリケーション実行環境です。CUIで操作を行い、JupyterLabが動作する環境をDockerのコンテナ上に構築します。
+
+下の利点からこのグループではDockerを採用しています。
+  * OSの種類(Windows、Mac、Linux)によらず、各自の端末に同じ実行環境を簡単に作ることができる。
+  * 環境の切り替え・変更(ライブラリの追加等）が簡単にできる。
+  * Dockerは仮想化の技術だが、Hypervisorを使った仮想化よりも、容量も軽量で動作も軽い。
+  * IT業界で広く使われる技術であるため、知識が流用できる。
 
 <img src="https://github.com/CodeSeterpie/CodeSeterpie/blob/develop/images/github/docker_image.jpg">
 
