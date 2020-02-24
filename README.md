@@ -13,16 +13,18 @@
 * みんなで解決します
 
 ## Menu
-* [Wiki](https://github.com/CodeSeterpie/CodeSeterpie/wiki)  
-  [活動記録](https://github.com/CodeSeterpie/CodeSeterpie/wiki#%E6%B4%BB%E5%8B%95%E8%A8%98%E9%8C%B2)、[環境構築](https://github.com/CodeSeterpie/CodeSeterpie/wiki/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)
+* [活動記録](https://github.com/CodeSeterpie/CodeSeterpie/wiki#%E6%B4%BB%E5%8B%95%E8%A8%98%E9%8C%B2)  
+  これまでに開催した会ごとのKaggleスコア、考察、課題等をまとめています。
+* [環境構築](https://github.com/CodeSeterpie/CodeSeterpie/wiki/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)  
+  実際にデータ分析を行うために必要なDocker、JupyterLabなどの実行環境の構築手順をまとめています。
 * [Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)  
-  課題、質問、やってみたい事
+  課題、質問、やってみたい事はここから挙げてください。
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
-  現在の目標とそれに対する課題
+  現在の目標とそれに対する課題を管理しています。
 * [Pulse](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
-  活動状況のサマリー
+  活動状況のサマリーはここから見ることができます。
 * [Contributors](https://github.com/CodeSeterpie/CodeSeterpie/graphs/contributors)  
-  Codeへの貢献度
+  メンバー毎のCodeへの貢献度が表示されます。
 
 ## Docker(ドッカー)とは
 
