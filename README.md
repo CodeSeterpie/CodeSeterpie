@@ -21,10 +21,8 @@
   課題、質問、やってみたい事はここから挙げてください。
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
   現在の目標とそれに対する課題を管理しています。
-* [Pulse](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
-  活動状況のサマリーはここから見ることができます。
-* [Contributors](https://github.com/CodeSeterpie/CodeSeterpie/graphs/contributors)  
-  メンバー毎のCodeへの貢献度が表示されます。
+* [Insights](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
+  このGithubページの動き(commits、pull requests、issuesの更新状況のサマリー)を見ることができます。
 
 ## Docker(ドッカー)とは
 
