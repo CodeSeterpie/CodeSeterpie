@@ -1,20 +1,28 @@
 # 基礎となるイメージを設定
 FROM jupyter/tensorflow-notebook 
 
+# apt-get update後にインストールするとエラーするため、先にXGBoostをインストール
+RUN pip install xgboost 
+
+USER root
+RUN apt-get update && \
+    apt-get install -yq --no-install-recommends \
+    graphviz \
+    cmake
+
 # 不足しているライブラリを追加インストール
-RUN pip install xgboost
-RUN pip install pandas_profiling
-RUN pip install lime
-RUN conda install -c conda-forge lightgbm
+USER $NB_UID
+RUN pip install pandas_profiling && \ 
+    pip install lime && \
+    pip install lightgbm && \
+    pip install graphviz
 
-# リント機能の追加
-RUN pip install flake8
-RUN jupyter labextension install jupyterlab-flake8
+# リント機能とコード自動整形機能の追加
+RUN pip install flake8 && \
+    jupyter labextension install jupyterlab-flake8
 
-# コード自動整形機能の追加
-#RUN pip install black
-#RUN pip install yapf
-RUN pip install autopep8
-RUN pip install jupyterlab_code_formatter
-RUN jupyter labextension install @ryantam626/jupyterlab_code_formatter
-RUN jupyter serverextension enable --py jupyterlab_code_formatter
+RUN jupyter labextension install @ryantam626/jupyterlab_code_formatter && \
+    pip install jupyterlab_code_formatter && \
+    jupyter serverextension enable --py jupyterlab_code_formatter && \
+    pip install autopep8
+
