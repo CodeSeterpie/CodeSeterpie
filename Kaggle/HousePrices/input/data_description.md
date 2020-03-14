@@ -1,6 +1,8 @@
 ### MSSubClass
 Identifies the type of dwelling involved in the sale.
 
+販売に関係する住居の種類を識別します。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |20|1-STORY 1946 & NEWER ALL STYLES||
@@ -23,6 +25,8 @@ Identifies the type of dwelling involved in the sale.
 ### MSZoning
 Identifies the general zoning classification of the sale.
 
+販売に関する一般的な地区の分類を識別します。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |A|Agriculture||
@@ -37,28 +41,38 @@ Identifies the general zoning classification of the sale.
 ### LotFrontage
 Linear feet of street connected to property
 
+物件と接触している道の長さ(直線で近侍。フィート)
+
 ### LotArea
 Lot size in square feet
+
+区画のサイズ(平方フィート)
 
 ### Street
 Type of road access to property
 
+物件にアクセスできる道の種類
+
 |value|detail|japanese|
 |:---|:---|:---|
-|Grvl|Gravel||
-|Pave|Paved||
+|Grvl|Gravel|砂利|
+|Pave|Paved|舗装|
 
 ### Alley
 Type of alley access to property
 
+物件にアクセスできる路地の種類
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Grvl|Gravel||
 |Pave|Paved||
-|NA |No alley access||
+|NA |No alley access|アクセスできる路地なし|
 
 ### LotShape
 General shape of property
+
+物件の大まかな形
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -70,6 +84,8 @@ General shape of property
 ### LandContour
 Flatness of the property
 
+物件の平坦度
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Lvl|Near Flat/Level||
@@ -79,6 +95,8 @@ Flatness of the property
 
 ### Utilities
 Type of utilities available
+
+利用可能な公共設備の種類
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -90,16 +108,20 @@ Type of utilities available
 ### LotConfig
 Lot configuration
 
+区画の配置
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Inside|Inside lot||
 |Corner|Corner lot||
-|CulDSac|Cul-de-sac||
+|CulDSac|Cul-de-sac|袋小路|
 |FR2|Frontage on 2 sides of property||
 |FR3|Frontage on 3 sides of property||
 
 ### LandSlope
 Slope of property
+
+物件の傾斜
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -109,6 +131,8 @@ Slope of property
 
 ### Neighborhood
 Physical locations within Ames city limits
+
+エイムス市内の位置
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -141,6 +165,8 @@ Physical locations within Ames city limits
 ### Condition1
 Proximity to various conditions
 
+付近の様子
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Artery|Adjacent to arterial street||
@@ -155,6 +181,8 @@ Proximity to various conditions
 
 ### Condition2
 Proximity to various conditions (if more than one is present)
+
+付近の様子(2つ以上あるとき)
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -171,6 +199,8 @@ Proximity to various conditions (if more than one is present)
 ### BldgType
 Type of dwelling
 
+家屋の種類
+
 |value|detail|japanese|
 |:---|:---|:---|
 |1Fam|Single-family Detached||
@@ -181,6 +211,8 @@ Type of dwelling
 
 ### HouseStyle
 Style of dwelling
+
+家屋の様式
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -195,6 +227,8 @@ Style of dwelling
 
 ### OverallQual
 Rates the overall material and finish of the house
+
+家の全体的な素材と仕上げを評価します。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -212,6 +246,8 @@ Rates the overall material and finish of the house
 ### OverallCond
 Rates the overall condition of the house
 
+家の全体的な状態を評価します。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |10|Very Excellent||
@@ -228,11 +264,17 @@ Rates the overall condition of the house
 ### YearBuilt
 Original construction date
 
+建築年
+
 ### YearRemodAdd
 Remodel date (same as construction date if no remodeling or additions)
 
+リフォームした年(リフォームは増築がない場合は建築年と同じ)
+
 ### RoofStyle
 Type of roof
+
+屋根の種類
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -245,6 +287,8 @@ Type of roof
 
 ### RoofMatl
 Roof material
+
+屋根の素材
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -259,6 +303,8 @@ Roof material
 
 ### Exterior1st
 Exterior covering on house
+
+家の外装
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -283,6 +329,8 @@ Exterior covering on house
 ### Exterior2nd
 Exterior covering on house (if more than one material)
 
+家の外装(素材が2つ以上の場合)
+
 |value|detail|japanese|
 |:---|:---|:---|
 |AsbShng|Asbestos Shingles||
@@ -306,6 +354,8 @@ Exterior covering on house (if more than one material)
 ### MasVnrType
 Masonry veneer type
 
+石材単板の種類
+
 |value|detail|japanese|
 |:---|:---|:---|
 |BrkCmn|Brick Common||
@@ -317,8 +367,12 @@ Masonry veneer type
 ### MasVnrArea
 Masonry veneer area in square feet
 
+石材単板の面積(平方フィート)
+
 ### ExterQual
 Evaluates the quality of the material on the exterior 
+
+外装の素材の品質を評価します。
 
 |value|detail|japanese|
 |:---|:---|:---|
