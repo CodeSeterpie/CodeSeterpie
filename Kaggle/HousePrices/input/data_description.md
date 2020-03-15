@@ -385,6 +385,8 @@ Evaluates the quality of the material on the exterior
 ### ExterCond
 Evaluates the present condition of the material on the exterior
 
+外装の素材の現状を評価します。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Ex|Excellent||
@@ -395,6 +397,8 @@ Evaluates the present condition of the material on the exterior
 
 ### Foundation
 Type of foundation
+
+基礎の種類。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -408,6 +412,8 @@ Type of foundation
 ### BsmtQual
 Evaluates the height of the basement
 
+地下室の高さを評価します。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Ex|Excellent (100+ inches)||
@@ -419,6 +425,8 @@ Evaluates the height of the basement
 
 ### BsmtCond
 Evaluates the general condition of the basement
+
+全体的な地下室の状態を評価します。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -432,6 +440,8 @@ Evaluates the general condition of the basement
 ### BsmtExposure
 Refers to walkout or garden level walls
 
+walkoutかgarden levelの壁かを示します。(地下室の露出の程度)
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Gd|Good Exposure||
@@ -442,6 +452,8 @@ Refers to walkout or garden level walls
 
 ### BsmtFinType1
 Rating of basement finished area
+
+完成した地下室エリアの評価。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -456,8 +468,12 @@ Rating of basement finished area
 ### BsmtFinSF1
 Type 1 finished square feet
 
+完成した地下室の広さ(平方フィート)
+
 ### BsmtFinType2
 Rating of basement finished area (if multiple types)
+
+完成した地下室エリアの評価。(複数タイプある場合)
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -472,14 +488,22 @@ Rating of basement finished area (if multiple types)
 ### BsmtFinSF2
 Type 2 finished square feet
 
+完成した地下室の広さ(平方フィート)
+
 ### BsmtUnfSF
 Unfinished square feet of basement area
+
+完成していない地下室エリア(平方フィート)
 
 ### TotalBsmtSF
 Total square feet of basement area
 
+地下室エリア全体の広さ(平方フィート)
+
 ### Heating
 Type of heating
+
+暖房の種類。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -493,6 +517,8 @@ Type of heating
 ### HeatingQC
 Heating quality and condition
 
+暖房の品質と状態。
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Ex|Excellent||
@@ -504,6 +530,8 @@ Heating quality and condition
 ### CentralAir
 Central air conditioning
 
+セントラルエアコンの有無
+
 |value|detail|japanese|
 |:---|:---|:---|
 |N|No||
@@ -511,6 +539,8 @@ Central air conditioning
 
 ### Electrical
 Electrical system
+
+電気系統
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -522,36 +552,58 @@ Electrical system
 
 ### 1stFlrSF
 First Floor square feet
+
+1階の広さ(平方フィート)
  
 ### 2ndFlrSF
 Second floor square feet
 
+2階の広さ(平方フィート)
+
 ### LowQualFinSF
 Low quality finished square feet (all floors)
+
+完成している低い品質の広さ(平方フィート、全てのフロア)
 
 ### GrLivArea
 Above grade (ground) living area square feet
 
+地上のリビングエリアの広さ(平方フィート)
+
 ### BsmtFullBath
 Basement full bathrooms
+
+地下のフルバスルーム(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
 
 ### BsmtHalfBath
 Basement half bathrooms
 
+地下のハーフバスルーム(便器と洗面台だけが備え付けられた部屋)
+
 ### FullBath
 Full bathrooms above grade
+
+地上のフルバスルーム(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
 
 ### HalfBath
 Half baths above grade
 
+地上のハーフバスルーム(便器と洗面台だけが備え付けられた部屋)
+
 ### Bedroom
 Bedrooms above grade (does NOT include basement bedrooms)
+
+地上の寝室(地下の寝室は含まない)
 
 ### Kitchen
 Kitchens above grade
 
+地上のキッチン
+
 ### KitchenQual
 Kitchen quality
+
+キッチンの品質
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -564,8 +616,12 @@ Kitchen quality
 ### TotRmsAbvGrd
 Total rooms above grade (does not include bathrooms)
 
+地上の全ての部屋(トイレは含まない)
+
 ### Functional
 Home functionality (Assume typical unless deductions are warranted)
+
+家の機能性(控除が認められない限り一般的なものと想定)
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -581,8 +637,12 @@ Home functionality (Assume typical unless deductions are warranted)
 ### Fireplaces
 Number of fireplaces
 
+暖炉の数
+
 ### FireplaceQu
 Fireplace quality
+
+暖炉の品質
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -595,6 +655,8 @@ Fireplace quality
 
 ### GarageType
 Garage location
+
+ガレージの位置
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -609,8 +671,12 @@ Garage location
 ### GarageYrBlt
 Year garage was built
 
+ガレージが作られた年
+
 ### GarageFinish
 Interior finish of the garage
+
+ガレージの内部仕上げ
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -622,11 +688,17 @@ Interior finish of the garage
 ### GarageCars
 Size of garage in car capacity
 
+車の収容数単位のガレージのサイズ
+
 ### GarageArea
 Size of garage in square feet
 
+ガレージのサイズ(平方フィート)
+
 ### GarageQual
 Garage quality
+
+ガレージの品質
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -640,6 +712,8 @@ Garage quality
 ### GarageCond
 Garage condition
 
+ガレージの状態
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Ex|Excellent||
@@ -652,6 +726,8 @@ Garage condition
 ### PavedDrive
 Paved driveway
 
+舗装されたガレージまでの私道
+
 |value|detail|japanese|
 |:---|:---|:---|
 |Y|Paved ||
@@ -661,23 +737,37 @@ Paved driveway
 ### WoodDeckSF
 Wood deck area in square feet
 
+ウッドデッキの広さ(平方フィート)
+
 ### OpenPorchSF
 Open porch area in square feet
+
+壁のないのポーチの広さ(平方フィート)
 
 ### EnclosedPorch
 Enclosed porch area in square feet
 
+壁に囲われているポーチの広さ(平方フィート)
+
 ### 3SsnPorch
 Three season porch area in square feet
+
+スリーシーズンポーチの広さ(平方フィート)
 
 ### ScreenPorch
 Screen porch area in square feet
 
+スクリーンポーチの広さ(平方フィート)
+
 ### PoolArea
 Pool area in square feet
 
+プールの広さ(平方フィート)
+
 ### PoolQC
 Pool quality
+
+プールの品質
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -690,6 +780,8 @@ Pool quality
 ### Fence
 Fence quality
 
+フェンスの品質
+
 |value|detail|japanese|
 |:---|:---|:---|
 |GdPrv|Good Privacy||
@@ -700,6 +792,8 @@ Fence quality
 
 ### MiscFeature
 Miscellaneous feature not covered in other categories
+
+カテゴリーに含まれないその他の機能
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -713,14 +807,22 @@ Miscellaneous feature not covered in other categories
 ### MiscVal
 $Value of miscellaneous feature
 
+その他の機能の価値($)
+
 ### MoSold
 Month Sold (MM)
+
+販売月
 
 ### YrSold
 Year Sold (YYYY)
 
+販売年
+
 ### SaleType
 Type of sale
+
+販売の種類
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -737,6 +839,8 @@ Type of sale
 
 ### SaleCondition
 Condition of sale
+
+販売の状態
 
 |value|detail|japanese|
 |:---|:---|:---|
