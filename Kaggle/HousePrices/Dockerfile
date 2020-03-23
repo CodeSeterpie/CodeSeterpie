@@ -20,7 +20,8 @@ RUN conda update -n base conda && \
 RUN conda install flake8 && \
     jupyter labextension install jupyterlab-flake8
 
-RUN jupyter labextension install @ryantam626/jupyterlab_code_formatter && \
-    conda install jupyterlab_code_formatter && \
-    jupyter serverextension enable --py jupyterlab_code_formatter && \
-    conda install autopep8
+RUN conda install autopep8
+RUN conda install jupyterlab_code_formatter=1.1.0 && \
+    jupyter labextension install @ryantam626/jupyterlab_code_formatter && \
+    jupyter serverextension enable --py jupyterlab_code_formatter
+

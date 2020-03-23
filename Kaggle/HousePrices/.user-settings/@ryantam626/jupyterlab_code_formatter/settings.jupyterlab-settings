@@ -1,7 +1,10 @@
 {  
   "autopep8": {  
-      "max_line_length": 120,  
-      "ignore": [    
-      ]  
-  }  
+      "max_line_length": 120
+  },
+  "preferences": {
+      "default_formatter": {
+          "python": "autopep8"
+      }
+  }
 }

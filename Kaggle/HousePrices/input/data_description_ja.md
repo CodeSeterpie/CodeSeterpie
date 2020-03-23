@@ -304,7 +304,7 @@ Roof material
 ### Exterior1st
 Exterior covering on house
 
-家の外装
+家の外装の素材
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -329,7 +329,7 @@ Exterior covering on house
 ### Exterior2nd
 Exterior covering on house (if more than one material)
 
-家の外装(素材が2つ以上の場合)
+家の外装の素材(素材が2つ以上の場合)
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -385,7 +385,7 @@ Evaluates the quality of the material on the exterior
 ### ExterCond
 Evaluates the present condition of the material on the exterior
 
-外装の素材の現状を評価します。
+外装の素材の状態を評価します。
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -493,7 +493,7 @@ Type 2 finished square feet
 ### BsmtUnfSF
 Unfinished square feet of basement area
 
-完成していない地下室エリア(平方フィート)
+完成していない地下室の広さ(平方フィート)
 
 ### TotalBsmtSF
 Total square feet of basement area
@@ -540,7 +540,7 @@ Central air conditioning
 ### Electrical
 Electrical system
 
-電気系統
+電気系統の種類
 
 |value|detail|japanese|
 |:---|:---|:---|
@@ -573,32 +573,32 @@ Above grade (ground) living area square feet
 ### BsmtFullBath
 Basement full bathrooms
 
-地下のフルバスルーム(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
+地下のフルバスルーム数(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
 
 ### BsmtHalfBath
 Basement half bathrooms
 
-地下のハーフバスルーム(便器と洗面台だけが備え付けられた部屋)
+地下のハーフバスルーム数(便器と洗面台だけが備え付けられた部屋)
 
 ### FullBath
 Full bathrooms above grade
 
-地上のフルバスルーム(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
+地上のフルバスルーム数(浴槽・シャワー・洗面台・便器の4点が備え付けられた部屋)
 
 ### HalfBath
 Half baths above grade
 
-地上のハーフバスルーム(便器と洗面台だけが備え付けられた部屋)
+地上のハーフバスルーム数(便器と洗面台だけが備え付けられた部屋)
 
-### Bedroom
+### BedroomAbvGr
 Bedrooms above grade (does NOT include basement bedrooms)
 
-地上の寝室(地下の寝室は含まない)
+地上の寝室数(地下の寝室は含まない)
 
-### Kitchen
+### KitchenAbvGr
 Kitchens above grade
 
-地上のキッチン
+地上のキッチン数
 
 ### KitchenQual
 Kitchen quality
@@ -616,7 +616,7 @@ Kitchen quality
 ### TotRmsAbvGrd
 Total rooms above grade (does not include bathrooms)
 
-地上の全ての部屋(トイレは含まない)
+地上の全ての部屋数(トイレは含まない)
 
 ### Functional
 Home functionality (Assume typical unless deductions are warranted)
@@ -688,7 +688,7 @@ Interior finish of the garage
 ### GarageCars
 Size of garage in car capacity
 
-車の収容数単位のガレージのサイズ
+ガレージに収容できる車の台数
 
 ### GarageArea
 Size of garage in square feet
@@ -726,7 +726,7 @@ Garage condition
 ### PavedDrive
 Paved driveway
 
-舗装されたガレージまでの私道
+舗装されたガレージまでの私道の種類
 
 |value|detail|japanese|
 |:---|:---|:---|
