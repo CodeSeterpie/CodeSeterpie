@@ -10,14 +10,13 @@ services:
            kaggle_houseprices 
         # 同じフォルダにあるDockerfileをビルドする。
         build: 
-            .
+            ./docker/jupyter/
         # マウントするフォルダを設定。
         volumes:
             # 現在のフォルダをDockerコンテナ上のkaggleフォルダに紐づける。 
             - ./:/kaggle
             # 現在のフォルダ/.user-settingsをコンテナ上のjupyter labのユーザ設定フォルダに紐づける。
             - ./.user-settings:/home/jovyan/.jupyter/lab/user-settings
-
 
         # コンテナ内の初期ディレクトリを設定
         working_dir: 
@@ -37,3 +36,33 @@ services:
             start.sh jupyter lab --ip=0.0.0.0 --allow-root --no-browser
 
 
+    # MySQL 
+    db:
+      image: mysql:5.7
+      container_name: mysql_host
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: docker
+          MYSQL_PASSWORD: docker
+          TZ: 'Asia/Tokyo'
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      volumes:
+          - ./docker/mysql/data:/var/lib/mysql
+          - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+          #- ./docker/mysql/sql:/docker-entrypoint-initdb.d
+      ports:
+        - 3306:3306
+
+    # phpMyAdmin
+    phpmyadmin:
+        container_name: test_phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        environment:
+           - PMA_ARBITRARY=1
+           - PMA_HOSTS=mysql_host
+           - PMA_USER=root
+           - PMA_PASSWORD=root
+        ports:
+           - 8080:80
+      
