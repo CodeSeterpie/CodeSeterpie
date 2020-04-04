@@ -156,6 +156,10 @@ dmypy.json
 /Kaggle/HousePrices/.user-settings/jupyterlab-flake8/*
 !/Kaggle/HousePrices/.user-settings/jupyterlab-flake8/plugins.jupyterlab-settings
 
+# MySQL
+/Kaggle/HousePrices/docker/mysql/data/*
+!/Kaggle/HousePrices/docker/mysql/data/.gitkeep
+
 ############################################################
 # Kaggle/Titanic
 ############################################################
