@@ -9,7 +9,7 @@ RUN apt-get update && \
 
 # 不足しているライブラリを追加インストール
 USER $NB_UID
-RUN conda update -n base conda && \
+RUN conda install conda=4.8.3 && \
     conda install xgboost && \
     conda install lightgbm && \
     conda install pandas-profiling && \
