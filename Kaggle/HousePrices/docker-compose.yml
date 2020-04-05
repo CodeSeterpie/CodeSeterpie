@@ -44,13 +44,13 @@ services:
             MYSQL_USER: docker
             MYSQL_PASSWORD: docker
             TZ: 'Asia/Tokyo'
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
             - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-            - ./docker/mysql/sql:/docker-entrypoint-initdb.d
+            - ./docker/mysql/init:/docker-entrypoint-initdb.d
         ports:
             - 3306:3306
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
     # phpMyAdmin
     phpmyadmin:

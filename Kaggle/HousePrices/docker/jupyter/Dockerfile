@@ -17,6 +17,8 @@ RUN conda install --quiet --yes \
     'pandas-profiling' \
     'lime' \
     'python-graphviz' \
+    'PyMySQL' \
+    'sqlalchemy' \
     && \
     conda clean --all -f -y 
 
