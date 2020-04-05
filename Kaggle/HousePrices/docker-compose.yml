@@ -45,9 +45,10 @@ services:
             MYSQL_PASSWORD: docker
             TZ: 'Asia/Tokyo'
         volumes:
-            - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
             - ./docker/mysql/init:/docker-entrypoint-initdb.d
+            # データをローカルに保持する場合は下のコメントを外す
+            #- ./docker/mysql/data:/var/lib/mysql
         ports:
             - 3306:3306
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

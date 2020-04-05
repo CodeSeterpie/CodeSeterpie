@@ -31,7 +31,8 @@ RUN conda install --quiet --yes \
     'jupyterlab_code_formatter=1.1.0' \
     && \
     conda clean --all -f -y && \
-    jupyter labextension install jupyterlab-flake8 && \
-    jupyter labextension install @ryantam626/jupyterlab_code_formatter && \
-    jupyter serverextension enable --py jupyterlab_code_formatter
-
+    jupyter labextension install jupyterlab-flake8 --no-build && \
+    jupyter labextension install @ryantam626/jupyterlab_code_formatter --no-build && \
+    jupyter serverextension enable --py jupyterlab_code_formatter && \
+    jupyter lab build && \
+    jupyter lab clean
