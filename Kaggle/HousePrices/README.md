@@ -1,3 +1,7 @@
+### データベース(MySQL)へのアクセス方法
+下のURLを開き、phpMyAdminを起動してデータベースを操作します。  
+http://localhost:8080/
+
 ### コード自動整形
 メニューから`Edit`>`Apply Autopep8 Formatter`を選択するとコードが自動整形されます。
 #### ショートカットに設定する方法
