@@ -1,6 +1,15 @@
 ### データベース(MySQL)へのアクセス方法
-下のURLを開き、phpMyAdminを起動してデータベースを操作します。  
-http://localhost:8080/
+任意のMySQLクライアントツールを使ってアクセスする。接続設定は下の通り。
+
+| 設定項目       | 値        |
+| -------------- | --------- |
+| Hostname       | 127.0.0.1 |
+| Port           | 3306      |
+| Username       | docker    |
+| Password       | docker    |
+| Default Schema | kaggle    |
+
+
 
 ### コード自動整形
 メニューから`Edit`>`Apply Autopep8 Formatter`を選択するとコードが自動整形されます。

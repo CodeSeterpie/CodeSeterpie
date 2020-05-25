@@ -51,17 +51,4 @@ services:
             #- ./docker/mysql/data:/var/lib/mysql
         ports:
             - 3306:3306
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-    # phpMyAdmin
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: houseprices_phpmyadmin
-        environment:
-            - PMA_ARBITRARY=1
-            - PMA_HOSTS=houseprices_mysql
-            - PMA_USER=root
-            - PMA_PASSWORD=root
-        ports:
-            - 8080:80
-      
