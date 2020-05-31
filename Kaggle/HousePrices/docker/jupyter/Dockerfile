@@ -19,6 +19,7 @@ RUN conda install --quiet --yes \
     'python-graphviz' \
     'PyMySQL' \
     'sqlalchemy' \
+    'tqdm' \
     && \
     conda clean --all -f -y 
 
