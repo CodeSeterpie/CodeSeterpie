@@ -1,5 +1,5 @@
 # 基礎となるイメージを設定
-FROM jupyter/tensorflow-notebook 
+FROM jupyter/tensorflow-notebook:76402a27fd13
 
 USER root
 RUN apt-get update && \
@@ -29,11 +29,13 @@ RUN conda install --quiet --yes \
 RUN conda install --quiet --yes \
     'flake8' \
     'autopep8' \
-    'jupyterlab_code_formatter=1.1.0' \
+    'jupyterlab_code_formatter' \
+	'jupytext' \
     && \
     conda clean --all -f -y && \
     jupyter labextension install jupyterlab-flake8 --no-build && \
     jupyter labextension install @ryantam626/jupyterlab_code_formatter --no-build && \
     jupyter serverextension enable --py jupyterlab_code_formatter && \
+    jupyter serverextension enable jupytext && \
     jupyter lab build && \
     jupyter lab clean
