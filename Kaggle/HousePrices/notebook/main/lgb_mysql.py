@@ -368,6 +368,8 @@ setAstype(train, test, 'GarageQual', 'float')
 setAstype(train, test, 'MasVnrType', 'float')
 
 # %%
+""" 2020/06/06 全体の平均から差を求めてもスコアが悪化したためコメントアウト
+
 # 2020/05/30 全体の平均値からの差を求める Start
 
 
@@ -399,6 +401,7 @@ for target_num in targets_num:
     addMeanDiff(train, test, target_num)
 
 # 2020/05/30 全体の平均値からの差を求める End
+"""
 
 # %%
 printTime('組み合わせ特徴量の作成開始')
