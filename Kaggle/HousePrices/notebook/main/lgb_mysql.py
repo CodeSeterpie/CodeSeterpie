@@ -92,7 +92,7 @@ targets_num = ['1stFlrSF',
                'BsmtQual',
                'FireplaceQu',
                'KitchenQual',
-               'PoolQC',
+               # 'PoolQC',
                'GarageQual',
                'MasVnrType'
                ]
@@ -101,11 +101,11 @@ targets_num = ['1stFlrSF',
 targets_category = [
     'MSSubClass',
     'MSZoning',
-    'Street',
+    # 'Street',
     'Alley',
     # 'LotShape',
     'LandContour',
-    'Utilities',
+    # 'Utilities',
     'LotConfig',
     'LandSlope',
     'Neighborhood',
@@ -152,6 +152,10 @@ targets.extend(targets_category)
 # ※変換処理後にinfo()で型を確認しても、objectと表示されるが内部的にはstrに変換されている。
 train[targets_category] = train[targets_category].astype(str)
 test[targets_category] = test[targets_category].astype(str)
+
+# %%
+train = train.drop(['Utilities', 'Street', 'PoolQC',], axis=1)
+test = test.drop(['Utilities', 'Street', 'PoolQC',], axis=1)
 
 
 # %%
@@ -283,6 +287,137 @@ addVar_LotArea(train, test, 'MSSubClass')
 
 
 # %%
+def addTotalSF(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['1stFlrSF'] 
+                      + row['2ndFlrSF']
+                      + row['TotalBsmtSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['TotalSF'] = dv
+
+
+addTotalSF(train)
+addTotalSF(test)
+
+def addYrBltAndRemod(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['YearBuilt'] 
+                      + row['YearRemodAdd'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['YrBltAndRemod'] = dv
+
+
+addYrBltAndRemod(train)
+addYrBltAndRemod(test)
+
+
+def addTotal_sqr_footage(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['BsmtFinSF1'] 
+                      + row['BsmtFinSF2']
+                      + row['1stFlrSF']
+                      + row['2ndFlrSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_sqr_footage'] = dv
+
+
+addTotal_sqr_footage(train)
+addTotal_sqr_footage(test)
+
+
+def addTotal_Bathrooms(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['FullBath'] 
+                      + (0.5 * row['HalfBath'])
+                      + row['BsmtFullBath']
+                      + (0.5 * row['BsmtHalfBath']))
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_Bathrooms'] = dv
+
+
+addTotal_Bathrooms(train)
+addTotal_Bathrooms(test)
+
+
+def addTotal_porch_sf(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['OpenPorchSF'] 
+                      + row['3SsnPorch']
+                      + row['EnclosedPorch']
+                      + row['ScreenPorch']
+                      + row['WoodDeckSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_porch_sf'] = dv
+
+
+addTotal_sqr_footage(train)
+addTotal_sqr_footage(test)
+
+
+def addhastarget(df, target):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        if np.isnan(row[target]) or row[target] == 0:
+            dv_ary.append(0)
+        else:
+            dv_ary.append(1)
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['has'+ target] = dv
+
+
+addhastarget(train, 'PoolArea')
+addhastarget(test, 'PoolArea')
+
+addhastarget(train, '2ndFlrSF')
+addhastarget(test, '2ndFlrSF')
+
+addhastarget(train, 'GarageArea')
+addhastarget(test, 'GarageArea')
+
+addhastarget(train, 'TotalBsmtSF')
+addhastarget(test, 'TotalBsmtSF')
+
+addhastarget(train, 'Fireplaces')
+addhastarget(test, 'Fireplaces')
+
+
+
+# %%
 
 def setAstype(train, test, colName, setType):
 
@@ -363,9 +498,11 @@ setAstype(train, test, 'BsmtCond', 'float')
 setAstype(train, test, 'BsmtQual', 'float')
 setAstype(train, test, 'FireplaceQu', 'float')
 setAstype(train, test, 'KitchenQual', 'float')
-setAstype(train, test, 'PoolQC', 'float')
+# setAstype(train, test, 'PoolQC', 'float')
 setAstype(train, test, 'GarageQual', 'float')
 setAstype(train, test, 'MasVnrType', 'float')
+
+
 
 # %%
 """ 2020/06/06 全体の平均から差を求めてもスコアが悪化したためコメントアウト
@@ -424,6 +561,7 @@ def calcFeatureValue(df, targets_pair):
         else:
             ary_multi.append(np.log(row[target1] * row[target2]))
 
+            """
         if np.isnan(row[target2]) or row[target2] == 0:
             ary_div1.append(0)
         else:
@@ -433,17 +571,22 @@ def calcFeatureValue(df, targets_pair):
             ary_div2.append(0)
         else:
             ary_div2.append(row[target2] / row[target1])
+            """
 
     # Seriesに変換
     dv_multi = pd.Series(ary_multi).astype(float)
+    """
     dv_div1 = pd.Series(ary_div1).astype(float)
     dv_div2 = pd.Series(ary_div2).astype(float)
-
+    """
+    
     # DataFrameと結合
     df[target1 + '_multi_' + target2] = dv_multi
+    """
     df[target1 + '_div_' + target2] = dv_div1
     df[target2 + '_div_' + target1] = dv_div2
-
+    """
+    
 
 # 2変数の組み合わせのlistを取得
 targets_pairs = list(itr.combinations(targets_num, 2))
@@ -496,6 +639,8 @@ train_y = train_featured['SalePrice']
 # テストデータは特徴量のみなので、そのままでよい
 test_x = test_featured.drop(['Id'], axis=1)
 test_id = test_featured['Id']
+
+train.shape
 
 
 # %% [markdown]
@@ -576,6 +721,7 @@ for tr_idx, va_idx in kf.split(train_x):
     lgb_eval = lgb.Dataset(va_x, va_y)
 
     # ハイパーパラメータの設定
+    """
     params = {
         'boosting_type': 'gbdt',
         'objective': 'regression_l2',
@@ -587,6 +733,22 @@ for tr_idx, va_idx in kf.split(train_x):
         'bagging_freq': 5,
         'lambda_l2': 2,
     }
+    """
+    
+    params = {
+        'objective': 'regression',
+        'num_leaves': 4,
+        'learning_rate': 0.01,
+        'n_estimators': 5000,
+        'max_bin': 200,
+        'bagging_fraction': 0.75,
+        'bagging_freq': 5,
+        'bagging_seed': 7,
+        'feature_fraction': 0.2,
+        'feature_fraction_seed': 7,
+        'verbose': -1,
+    }
+    
 
     # 作成する決定木の数を指定
     num_round = 100
@@ -651,4 +813,4 @@ lgb.plot_importance(model, figsize=(10, 30), max_num_features=100)
 # #### 分析に使用した決定木を可視化
 
 # %%
-lgb.create_tree_digraph(model)
+lgb.create_tree_digraph(model, tree_index=2)
