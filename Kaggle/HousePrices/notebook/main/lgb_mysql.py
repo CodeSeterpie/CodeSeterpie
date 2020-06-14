@@ -22,12 +22,17 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import lightgbm as lgb
+import xgboost as xgb
 import sqlalchemy as sql
+import matplotlib as plt
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
 # プログレスバーの表示に使用
 from tqdm.notebook import tqdm
+# 警告を非表示に設定
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def printTime(tag):
@@ -92,7 +97,7 @@ targets_num = ['1stFlrSF',
                'BsmtQual',
                'FireplaceQu',
                'KitchenQual',
-               'PoolQC',
+               # 'PoolQC',
                'GarageQual',
                'MasVnrType'
                ]
@@ -101,11 +106,11 @@ targets_num = ['1stFlrSF',
 targets_category = [
     'MSSubClass',
     'MSZoning',
-    'Street',
+    # 'Street',
     'Alley',
     # 'LotShape',
     'LandContour',
-    'Utilities',
+    # 'Utilities',
     'LotConfig',
     'LandSlope',
     'Neighborhood',
@@ -152,6 +157,16 @@ targets.extend(targets_category)
 # ※変換処理後にinfo()で型を確認しても、objectと表示されるが内部的にはstrに変換されている。
 train[targets_category] = train[targets_category].astype(str)
 test[targets_category] = test[targets_category].astype(str)
+
+# %%
+train = train.drop(['Utilities', 'Street', 'PoolQC',], axis=1)
+test = test.drop(['Utilities', 'Street', 'PoolQC',], axis=1)
+
+"""
+# 参考にならないデータを除外
+outliers = [30, 88, 462, 631, 1322]
+train = train.drop(train.index[outliers])
+"""
 
 
 # %%
@@ -283,6 +298,137 @@ addVar_LotArea(train, test, 'MSSubClass')
 
 
 # %%
+def addTotalSF(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['1stFlrSF'] 
+                      + row['2ndFlrSF']
+                      + row['TotalBsmtSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['TotalSF'] = dv
+
+
+addTotalSF(train)
+addTotalSF(test)
+
+def addYrBltAndRemod(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['YearBuilt'] 
+                      + row['YearRemodAdd'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['YrBltAndRemod'] = dv
+
+
+addYrBltAndRemod(train)
+addYrBltAndRemod(test)
+
+
+def addTotal_sqr_footage(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['BsmtFinSF1'] 
+                      + row['BsmtFinSF2']
+                      + row['1stFlrSF']
+                      + row['2ndFlrSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_sqr_footage'] = dv
+
+
+addTotal_sqr_footage(train)
+addTotal_sqr_footage(test)
+
+
+def addTotal_Bathrooms(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['FullBath'] 
+                      + (0.5 * row['HalfBath'])
+                      + row['BsmtFullBath']
+                      + (0.5 * row['BsmtHalfBath']))
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_Bathrooms'] = dv
+
+
+addTotal_Bathrooms(train)
+addTotal_Bathrooms(test)
+
+
+def addTotal_porch_sf(df):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        dv_ary.append(row['OpenPorchSF'] 
+                      + row['3SsnPorch']
+                      + row['EnclosedPorch']
+                      + row['ScreenPorch']
+                      + row['WoodDeckSF'])
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['Total_porch_sf'] = dv
+
+
+addTotal_sqr_footage(train)
+addTotal_sqr_footage(test)
+
+
+def addhastarget(df, target):
+
+    dv_ary = []
+    for index, row in df.iterrows():
+
+        if np.isnan(row[target]) or row[target] == 0:
+            dv_ary.append(0)
+        else:
+            dv_ary.append(1)
+
+    # Seriesに変換
+    dv = pd.Series(dv_ary).astype(float)
+    # DataFrameと結合
+    df['has'+ target] = dv
+
+
+addhastarget(train, 'PoolArea')
+addhastarget(test, 'PoolArea')
+
+addhastarget(train, '2ndFlrSF')
+addhastarget(test, '2ndFlrSF')
+
+addhastarget(train, 'GarageArea')
+addhastarget(test, 'GarageArea')
+
+addhastarget(train, 'TotalBsmtSF')
+addhastarget(test, 'TotalBsmtSF')
+
+addhastarget(train, 'Fireplaces')
+addhastarget(test, 'Fireplaces')
+
+
+
+# %%
 
 def setAstype(train, test, colName, setType):
 
@@ -363,9 +509,11 @@ setAstype(train, test, 'BsmtCond', 'float')
 setAstype(train, test, 'BsmtQual', 'float')
 setAstype(train, test, 'FireplaceQu', 'float')
 setAstype(train, test, 'KitchenQual', 'float')
-setAstype(train, test, 'PoolQC', 'float')
+# setAstype(train, test, 'PoolQC', 'float')
 setAstype(train, test, 'GarageQual', 'float')
 setAstype(train, test, 'MasVnrType', 'float')
+
+
 
 # %%
 """ 2020/06/06 全体の平均から差を求めてもスコアが悪化したためコメントアウト
@@ -424,6 +572,7 @@ def calcFeatureValue(df, targets_pair):
         else:
             ary_multi.append(np.log(row[target1] * row[target2]))
 
+            """
         if np.isnan(row[target2]) or row[target2] == 0:
             ary_div1.append(0)
         else:
@@ -433,17 +582,22 @@ def calcFeatureValue(df, targets_pair):
             ary_div2.append(0)
         else:
             ary_div2.append(row[target2] / row[target1])
+            """
 
     # Seriesに変換
     dv_multi = pd.Series(ary_multi).astype(float)
+    """
     dv_div1 = pd.Series(ary_div1).astype(float)
     dv_div2 = pd.Series(ary_div2).astype(float)
-
+    """
+    
     # DataFrameと結合
     df[target1 + '_multi_' + target2] = dv_multi
+    """
     df[target1 + '_div_' + target2] = dv_div1
     df[target2 + '_div_' + target1] = dv_div2
-
+    """
+    
 
 # 2変数の組み合わせのlistを取得
 targets_pairs = list(itr.combinations(targets_num, 2))
@@ -496,6 +650,8 @@ train_y = train_featured['SalePrice']
 # テストデータは特徴量のみなので、そのままでよい
 test_x = test_featured.drop(['Id'], axis=1)
 test_id = test_featured['Id']
+
+train.shape
 
 
 # %% [markdown]
@@ -576,6 +732,7 @@ for tr_idx, va_idx in kf.split(train_x):
     lgb_eval = lgb.Dataset(va_x, va_y)
 
     # ハイパーパラメータの設定
+    """
     params = {
         'boosting_type': 'gbdt',
         'objective': 'regression_l2',
@@ -587,48 +744,117 @@ for tr_idx, va_idx in kf.split(train_x):
         'bagging_freq': 5,
         'lambda_l2': 2,
     }
-
-    # 作成する決定木の数を指定
-    num_round = 100
-
+    """
+    
+    params = {
+        'objective': 'regression',
+        'num_leaves': 4,
+        'learning_rate': 0.01,
+        'n_estimators': 5000,
+        'max_bin': 200,
+        'bagging_fraction': 0.75,
+        'bagging_freq': 5,
+        'bagging_seed': 7,
+        'feature_fraction': 0.2,
+        'feature_fraction_seed': 7,
+        'verbose': -1,
+    }
+    
     # 学習の実行
     # カテゴリ変数をパラメータで指定している
     # バリデーションデータもモデルに渡し、学習の進行とともにスコアがどう変わるかモニタリングする
     model = lgb.train(params,
                       lgb_train,
-                      num_boost_round=num_round,
+                      num_boost_round=100,  # 作成する決定木の数を指定
                       # categorical_feature=targets_category,
                       valid_names=['train', 'valid'],
                       valid_sets=[lgb_train, lgb_eval],
                       verbose_eval=0)
 
     # バリデーションデータでのスコアの確認
-    va_pred = model.predict(va_x)
-    va_pred_list.append(va_pred)
+    va_pred_lgb = model.predict(va_x)
+    va_pred_list.append(va_pred_lgb)
 
     # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
-    rmse = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred)))
-    print(f'RMSE: {rmse:.4f}')
-
+    rmse_lgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_lgb)))
+    
     # 加重平均を求めるための重さを設定(rmseは小さい方がいいため、逆数を設定)
-    va_weight_list.append(np.reciprocal(rmse))
+    va_weight_list.append(np.reciprocal(rmse_lgb))
+    
+    # 予測
+    pred_list.append(model.predict(test_x))
+    
+    # 2020/05/30 予想値と真の値の差が大きいデータを分析する Start
+    func_write_prediction_result2csv(va_x, va_y, va_pred_lgb, loop_count)
+    # 2020/05/30 予想値と真の値の差が大きいデータを分析する End
+    
+    # XGBoostモデルでの解析
+    xgbtrain = xgb.DMatrix(tr_x, label=tr_y)
+    xgbvaild = xgb.DMatrix(va_x, label=va_y)
+    xgbtest = xgb.DMatrix(test_x)
+    
+    """
+    params_xgb = {
+        'learning_rate': 0.01,
+        # 'n_estimators': 3460,
+        'max_depth': 3,
+        'min_child_weight': 0,
+        'gamma': 0,
+        'subsample': 0.7,
+        'colsample_bytree': 0.7,
+        'objective': 'reg:squarederror',
+        'nthread': -1,
+        'scale_pos_weight': 1,
+        'seed': 27,
+        # 'ret_alpha': 0.00006
+    }
+    """
+    
+    params_xgb = {
+        'objective': 'reg:squarederror',
+        'silent': 1,
+        'random_state': 71
+    }
+    
+    model_xgb = xgb.train(params_xgb,
+                          xgbtrain,
+                          100,
+                          evals=[(xgbtrain, 'train'), (xgbvaild, 'eval')],
+                          verbose_eval=0
+                         )
+    
+    # バリデーションデータでのスコアの確認
+    va_pred_xgb = model_xgb.predict(xgb.DMatrix(va_x))
+    va_pred_list.append(va_pred_xgb)
+
+    # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
+    rmse_xgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_xgb)))
+    
+    # 加重平均を求めるための重さを設定(rmseは小さい方がいいため、逆数を設定)
+    va_weight_list.append(np.reciprocal(rmse_xgb))
+    
+    # 予測
+    pred_list.append(model_xgb.predict(xgbtest))
+    
+    print(f'RMSE:LightGBM {rmse_lgb:.4f} ,XGBoost {rmse_xgb:.4f}')
 
     # 結果の可視化
     sns.jointplot(
         va_y,
-        va_pred,
+        va_pred_lgb,
         kind="reg",
         xlim=(0, 600000),
         ylim=(0, 600000)
-    ).set_axis_labels("true", "pred")
+    ).set_axis_labels("true", "pred(LightGBM)")
 
-    # 2020/05/30 予想値と真の値の差が大きいデータを分析する Start
-    func_write_prediction_result2csv(va_x, va_y, va_pred, loop_count)
-    # 2020/05/30 予想値と真の値の差が大きいデータを分析する End
-
-    # 予測
-    pred_list.append(model.predict(test_x))
-
+    sns.jointplot(
+        va_y,
+        va_pred_xgb,
+        kind="reg",
+        xlim=(0, 600000),
+        ylim=(0, 600000),
+        color="g"
+    ).set_axis_labels("true", "pred(XGBoost)")
 
 va_pred_list = np.array(va_pred_list)
 pred_list = np.array(pred_list)
@@ -647,8 +873,6 @@ printTime('モデルの作成終了')
 # %%
 lgb.plot_importance(model, figsize=(10, 30), max_num_features=100)
 
-# %% [markdown]
-# #### 分析に使用した決定木を可視化
-
 # %%
-lgb.create_tree_digraph(model)
+_, ax = plt.pyplot.subplots(figsize=(10, 30))
+xgb.plot_importance(model_xgb, ax=ax, max_num_features=100)
