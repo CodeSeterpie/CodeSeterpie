@@ -715,7 +715,7 @@ va_weight_list = []
 pred_list = []
 
 # 学習データを学習データとバリデーションデータに分ける
-kf = KFold(n_splits=4, shuffle=True, random_state=71)
+kf = KFold(n_splits=25, shuffle=True, random_state=71)
 
 loop_count = 0
 for tr_idx, va_idx in kf.split(train_x):
@@ -778,9 +778,6 @@ for tr_idx, va_idx in kf.split(train_x):
     # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
     rmse_lgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_lgb)))
     
-    # 加重平均を求めるための重さを設定(rmseは小さい方がいいため、逆数を設定)
-    va_weight_list.append(np.reciprocal(rmse_lgb))
-    
     # 予測
     pred_list.append(model.predict(test_x))
     
@@ -795,26 +792,29 @@ for tr_idx, va_idx in kf.split(train_x):
     
     """
     params_xgb = {
-        'learning_rate': 0.01,
+        'learning_rate': 0.3,
         # 'n_estimators': 3460,
-        'max_depth': 3,
-        'min_child_weight': 0,
+        # 'max_depth': 3,
+        # 'min_child_weight': 0,
         'gamma': 0,
-        'subsample': 0.7,
+        # 'subsample': 0.7,
         'colsample_bytree': 0.7,
-        'objective': 'reg:squarederror',
+        'objective': 'reg:linear',
         'nthread': -1,
         'scale_pos_weight': 1,
         'seed': 27,
-        # 'ret_alpha': 0.00006
+        # 'ret_alpha': 0.00006,
+        'random_state': 71
     }
     """
     
     params_xgb = {
-        'objective': 'reg:squarederror',
+        'learning_rate': 0.12,
+        'objective': 'reg:linear',
         'silent': 1,
         'random_state': 71
     }
+    
     
     model_xgb = xgb.train(params_xgb,
                           xgbtrain,
@@ -830,14 +830,21 @@ for tr_idx, va_idx in kf.split(train_x):
     # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
     rmse_xgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_xgb)))
     
+    
     # 加重平均を求めるための重さを設定(rmseは小さい方がいいため、逆数を設定)
-    va_weight_list.append(np.reciprocal(rmse_xgb))
+    if rmse_lgb > rmse_xgb: 
+       va_weight_list.append(0)
+       va_weight_list.append(1)
+    else:
+       va_weight_list.append(1)
+       va_weight_list.append(0)
     
     # 予測
     pred_list.append(model_xgb.predict(xgbtest))
     
     print(f'RMSE:LightGBM {rmse_lgb:.4f} ,XGBoost {rmse_xgb:.4f}')
 
+    """
     # 結果の可視化
     sns.jointplot(
         va_y,
@@ -855,7 +862,8 @@ for tr_idx, va_idx in kf.split(train_x):
         ylim=(0, 600000),
         color="g"
     ).set_axis_labels("true", "pred(XGBoost)")
-
+    """
+    
 va_pred_list = np.array(va_pred_list)
 pred_list = np.array(pred_list)
 
