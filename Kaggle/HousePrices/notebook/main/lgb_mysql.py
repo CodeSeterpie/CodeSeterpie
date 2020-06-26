@@ -28,6 +28,8 @@ import matplotlib as plt
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
+from sklearn.ensemble import RandomForestRegressor
+
 # プログレスバーの表示に使用
 from tqdm.notebook import tqdm
 # 警告を非表示に設定
@@ -69,6 +71,100 @@ test = pd.read_csv('/kaggle/input/test.csv')
 train.to_sql('train', engine, index=False, if_exists='replace')
 test.to_sql('test', engine, index=False, if_exists='replace')
 
+
+# %% [markdown]
+# #### 欠損地を穴埋め
+
+# %%
+def missing_percentage(df):
+    """This function takes a DataFrame(df) as input and returns two columns, total missing values and total missing values percentage"""
+    ## the two following line may seem complicated but its actually very simple. 
+    total = df.isnull().sum().sort_values(ascending = False)[df.isnull().sum().sort_values(ascending = False) != 0]
+    percent = round(df.isnull().sum().sort_values(ascending = False)/len(df)*100,2)[round(df.isnull().sum().sort_values(ascending = False)/len(df)*100,2) != 0]
+    return pd.concat([total, percent], axis=1, keys=['Total','Percent'])
+
+
+all_data = train.copy()
+all_data = all_data.append(test, ignore_index=True)
+
+missing_val_col = ["Alley",
+                   "PoolQC",
+                   "MiscFeature",
+                   "Fence",
+                   "FireplaceQu",
+                   "GarageType",
+                   "GarageFinish",
+                   "GarageQual",
+                   "GarageCond",
+                   'BsmtQual',
+                   'BsmtCond',
+                   'BsmtExposure',
+                   'BsmtFinType1',
+                   'BsmtFinType2',
+                   'MasVnrType']
+
+for i in missing_val_col:
+    train[i] = train[i].fillna('None')
+    test[i] = test[i].fillna('None')
+
+missing_val_col2 = ['BsmtFinSF1',
+                    'BsmtFinSF2',
+                    'BsmtUnfSF',
+                    'TotalBsmtSF',
+                    'BsmtFullBath', 
+                    'BsmtHalfBath', 
+                    'GarageYrBlt',
+                    'GarageArea',
+                    'GarageCars',
+                    'MasVnrArea']
+
+for i in missing_val_col2:
+    train[i] = train[i].fillna(0)
+    test[i] = test[i].fillna(0)
+        
+train['Functional'] = train['Functional'].fillna('Typ')
+test['Functional'] = test['Functional'].fillna('Typ')
+
+train['Utilities'] = train['Utilities'].fillna('AllPub')
+test['Utilities'] = test['Utilities'].fillna('AllPub')
+
+train['Electrical'] = train['Electrical'].fillna("SBrkr")
+test['Electrical'] = test['Electrical'].fillna("SBrkr")
+
+train['KitchenQual'] = train['KitchenQual'].fillna("TA")
+test['KitchenQual'] = test['KitchenQual'].fillna("TA")
+
+"""
+all_data['LotFrontage'] = all_data.groupby('Neighborhood')['LotFrontage'].transform( lambda x: x.fillna(x.mean()))
+train['LotFrontage'] = all_data['LotFrontage'][0:len(train)]
+test['LotFrontage'] = pd.Series(all_data['LotFrontage'][len(train): len(train) + len(test) + 1].values.tolist())
+"""
+train['LotFrontage'] = train['LotFrontage'].fillna(0)
+test['LotFrontage'] = test['LotFrontage'].fillna(0)
+
+"""
+all_data['MSZoning'] = all_data.groupby('MSSubClass')['MSZoning'].transform(lambda x: x.fillna(x.mode()[0]))
+train['MSZoning'] = all_data['MSZoning'][0:len(train)]
+test['MSZoning'] = pd.Series(all_data['MSZoning'][len(train): len(train) + len(test) + 1].values.tolist())
+"""
+train['MSZoning'] = train['MSZoning'].fillna('None')
+test['MSZoning'] = test['MSZoning'].fillna('None')
+
+
+# 学習データ、テストデータ合わせた中での最頻値を設定
+train['Exterior1st'] = train['Exterior1st'].fillna(all_data['Exterior1st'].mode()[0])
+test['Exterior1st'] = test['Exterior1st'].fillna(all_data['Exterior1st'].mode()[0])
+
+train['Exterior2nd'] = train['Exterior2nd'].fillna(all_data['Exterior2nd'].mode()[0])
+test['Exterior2nd'] = test['Exterior2nd'].fillna(all_data['Exterior2nd'].mode()[0])
+
+train['SaleType'] = train['SaleType'].fillna(all_data['SaleType'].mode()[0])
+test['SaleType'] = test['SaleType'].fillna(all_data['SaleType'].mode()[0])
+
+
+    
+#missing_percentage(train)
+missing_percentage(test)
 
 # %% [markdown]
 #  #### 特徴量作成
@@ -264,7 +360,7 @@ def addStd_LotArea(df1, df2, target):
 addStd_LotArea(train, test, 'Neighborhood')
 addStd_LotArea(train, test, 'Condition1')
 addStd_LotArea(train, test, 'HouseStyle')
-addStd_LotArea(train, test, 'MSSubClass')
+# addStd_LotArea(train, test, 'MSSubClass')
 
 
 def calcVar_LotArea(df, target, dv_count):
@@ -294,8 +390,7 @@ def addVar_LotArea(df1, df2, target):
 addVar_LotArea(train, test, 'Neighborhood')
 addVar_LotArea(train, test, 'Condition1')
 addVar_LotArea(train, test, 'HouseStyle')
-addVar_LotArea(train, test, 'MSSubClass')
-
+# addVar_LotArea(train, test, 'MSSubClass')
 
 # %%
 def addTotalSF(df):
@@ -303,7 +398,7 @@ def addTotalSF(df):
     dv_ary = []
     for index, row in df.iterrows():
 
-        dv_ary.append(row['1stFlrSF'] 
+        dv_ary.append(row['1stFlrSF']
                       + row['2ndFlrSF']
                       + row['TotalBsmtSF'])
 
@@ -316,12 +411,13 @@ def addTotalSF(df):
 addTotalSF(train)
 addTotalSF(test)
 
+
 def addYrBltAndRemod(df):
 
     dv_ary = []
     for index, row in df.iterrows():
 
-        dv_ary.append(row['YearBuilt'] 
+        dv_ary.append(row['YearBuilt']
                       + row['YearRemodAdd'])
 
     # Seriesに変換
@@ -339,7 +435,7 @@ def addTotal_sqr_footage(df):
     dv_ary = []
     for index, row in df.iterrows():
 
-        dv_ary.append(row['BsmtFinSF1'] 
+        dv_ary.append(row['BsmtFinSF1']
                       + row['BsmtFinSF2']
                       + row['1stFlrSF']
                       + row['2ndFlrSF'])
@@ -359,7 +455,7 @@ def addTotal_Bathrooms(df):
     dv_ary = []
     for index, row in df.iterrows():
 
-        dv_ary.append(row['FullBath'] 
+        dv_ary.append(row['FullBath']
                       + (0.5 * row['HalfBath'])
                       + row['BsmtFullBath']
                       + (0.5 * row['BsmtHalfBath']))
@@ -379,7 +475,7 @@ def addTotal_porch_sf(df):
     dv_ary = []
     for index, row in df.iterrows():
 
-        dv_ary.append(row['OpenPorchSF'] 
+        dv_ary.append(row['OpenPorchSF']
                       + row['3SsnPorch']
                       + row['EnclosedPorch']
                       + row['ScreenPorch']
@@ -408,7 +504,7 @@ def addhastarget(df, target):
     # Seriesに変換
     dv = pd.Series(dv_ary).astype(float)
     # DataFrameと結合
-    df['has'+ target] = dv
+    df['has' + target] = dv
 
 
 addhastarget(train, 'PoolArea')
@@ -427,7 +523,6 @@ addhastarget(train, 'Fireplaces')
 addhastarget(test, 'Fireplaces')
 
 
-
 # %%
 
 def setAstype(train, test, colName, setType):
@@ -444,56 +539,62 @@ dec = {
         'IR3': 1
     },
     'BsmtCond': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'BsmtQual': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'FireplaceQu': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'KitchenQual': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'PoolQC': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'GarageQual': {
-        'Ex': 5,
-        'Gd': 4,
-        'TA': 3,
+        'Ex': 16,
+        'Gd': 8,
+        'TA': 4,
         'Fa': 2,
         'Po': 1,
-        'NA': -9999
+        'NA': 0,
+        'None': -9999
     },
     'MasVnrType': {
-        'BrkCmn': 4,
-        'BrkFace': 3,
+        'BrkCmn': 8,
+        'BrkFace': 4,
         'CBlock': 2,
         'Stone': 1,
         'None': -9999
@@ -567,8 +668,9 @@ def calcFeatureValue(df, targets_pair):
     for index, row in df.iterrows():
 
         if np.isnan(row[target1]) or np.isnan(row[target2]) \
-                or row[target1] == 0 or row[target2] == 0:
-            ary_multi.append(np.log(1))
+                or row[target1] == 0 or row[target2] == 0 \
+                or row[target1] == -9999 or row[target2] == -9999:
+            ary_multi.append(np.log(0.00001))
         else:
             ary_multi.append(np.log(row[target1] * row[target2]))
 
@@ -590,14 +692,14 @@ def calcFeatureValue(df, targets_pair):
     dv_div1 = pd.Series(ary_div1).astype(float)
     dv_div2 = pd.Series(ary_div2).astype(float)
     """
-    
+
     # DataFrameと結合
     df[target1 + '_multi_' + target2] = dv_multi
     """
     df[target1 + '_div_' + target2] = dv_div1
     df[target2 + '_div_' + target1] = dv_div2
     """
-    
+
 
 # 2変数の組み合わせのlistを取得
 targets_pairs = list(itr.combinations(targets_num, 2))
@@ -652,6 +754,8 @@ test_x = test_featured.drop(['Id'], axis=1)
 test_id = test_featured['Id']
 
 train.shape
+
+missing_percentage(test)
 
 
 # %% [markdown]
@@ -715,7 +819,7 @@ va_weight_list = []
 pred_list = []
 
 # 学習データを学習データとバリデーションデータに分ける
-kf = KFold(n_splits=25, shuffle=True, random_state=71)
+kf = KFold(n_splits=24, shuffle=True, random_state=42)
 
 loop_count = 0
 for tr_idx, va_idx in kf.split(train_x):
@@ -745,7 +849,7 @@ for tr_idx, va_idx in kf.split(train_x):
         'lambda_l2': 2,
     }
     """
-    
+
     params = {
         'objective': 'regression',
         'num_leaves': 4,
@@ -759,7 +863,7 @@ for tr_idx, va_idx in kf.split(train_x):
         'feature_fraction_seed': 7,
         'verbose': -1,
     }
-    
+
     # 学習の実行
     # カテゴリ変数をパラメータで指定している
     # バリデーションデータもモデルに渡し、学習の進行とともにスコアがどう変わるかモニタリングする
@@ -777,72 +881,110 @@ for tr_idx, va_idx in kf.split(train_x):
 
     # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
     rmse_lgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_lgb)))
-    
+
     # 予測
     pred_list.append(model.predict(test_x))
-    
+
     # 2020/05/30 予想値と真の値の差が大きいデータを分析する Start
     func_write_prediction_result2csv(va_x, va_y, va_pred_lgb, loop_count)
     # 2020/05/30 予想値と真の値の差が大きいデータを分析する End
-    
+
     # XGBoostモデルでの解析
     xgbtrain = xgb.DMatrix(tr_x, label=tr_y)
     xgbvaild = xgb.DMatrix(va_x, label=va_y)
     xgbtest = xgb.DMatrix(test_x)
-    
+
     """
     params_xgb = {
         'learning_rate': 0.3,
-        # 'n_estimators': 3460,
-        # 'max_depth': 3,
-        # 'min_child_weight': 0,
+        'n_estimators': 3460,
+        'max_depth': 3,
+        'min_child_weight': 0,
         'gamma': 0,
-        # 'subsample': 0.7,
+        'subsample': 0.7,
         'colsample_bytree': 0.7,
         'objective': 'reg:linear',
         'nthread': -1,
         'scale_pos_weight': 1,
         'seed': 27,
-        # 'ret_alpha': 0.00006,
+        'ret_alpha': 0.00006,
         'random_state': 71
     }
     """
-    
+
     params_xgb = {
         'learning_rate': 0.12,
         'objective': 'reg:linear',
         'silent': 1,
         'random_state': 71
     }
-    
-    
+ 
     model_xgb = xgb.train(params_xgb,
                           xgbtrain,
-                          100,
+                          170,
                           evals=[(xgbtrain, 'train'), (xgbvaild, 'eval')],
                           verbose_eval=0
-                         )
-    
+                          )
+
     # バリデーションデータでのスコアの確認
     va_pred_xgb = model_xgb.predict(xgb.DMatrix(va_x))
     va_pred_list.append(va_pred_xgb)
 
     # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
     rmse_xgb = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_xgb)))
+
+    # 予測
+    pred_list.append(model_xgb.predict(xgbtest))
     
     
-    # 加重平均を求めるための重さを設定(rmseは小さい方がいいため、逆数を設定)
+    """
+    # RandomForestモデルでの解析
+    model_rdm = RandomForestRegressor(n_estimators=500, n_jobs=-1, max_depth=15)
+    model_rdm.fit(tr_x, tr_y)
+    
+    # バリデーションデータでのスコア確認
+    va_pred_rdm = model_rdm.predict(va_x)
+    va_pred_list.append(va_pred_rdm)
+    
+    # バリデーションデータでのスコア(真の値の対数と予測値の対数の二乗平均平方根誤差 (RMSE))を計算する
+    rmse_rdm = np.sqrt(mean_squared_error(np.log(va_y), np.log(va_pred_rdm)))
+
+    # 予測
+    pred_list.append(model_rdm.predict(test_x))
+    """
+    
+    # 加重平均を求めるための重さを設定
     if rmse_lgb > rmse_xgb: 
        va_weight_list.append(0)
        va_weight_list.append(1)
     else:
        va_weight_list.append(1)
        va_weight_list.append(0)
-    
-    # 予測
-    pred_list.append(model_xgb.predict(xgbtest))
-    
+
     print(f'RMSE:LightGBM {rmse_lgb:.4f} ,XGBoost {rmse_xgb:.4f}')
+        
+    """
+    if rmse_lgb > rmse_xgb:
+        if rmse_lgb > rmse_rdm:
+            va_weight_list.append(0)
+            va_weight_list.append(1)
+            va_weight_list.append(1)
+        else:
+            va_weight_list.append(1)
+            va_weight_list.append(1)
+            va_weight_list.append(0)
+    else:
+        if rmse_xgb > rmse_rdm:
+            va_weight_list.append(1)
+            va_weight_list.append(0)
+            va_weight_list.append(1)
+        else:
+            va_weight_list.append(1)
+            va_weight_list.append(1)
+            va_weight_list.append(0)
+
+    print(f'RMSE:LightGBM {rmse_lgb:.4f} ,XGBoost {rmse_xgb:.4f} ,RandomForest {rmse_rdm:.4f}')
+    """
 
     """
     # 結果の可視化
@@ -863,7 +1005,7 @@ for tr_idx, va_idx in kf.split(train_x):
         color="g"
     ).set_axis_labels("true", "pred(XGBoost)")
     """
-    
+
 va_pred_list = np.array(va_pred_list)
 pred_list = np.array(pred_list)
 
