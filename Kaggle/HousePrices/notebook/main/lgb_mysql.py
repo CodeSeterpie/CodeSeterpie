@@ -918,7 +918,7 @@ for tr_idx, va_idx in kf.split(train_x):
         'silent': 1,
         'random_state': 71
     }
- 
+
     model_xgb = xgb.train(params_xgb,
                           xgbtrain,
                           170,
@@ -935,8 +935,7 @@ for tr_idx, va_idx in kf.split(train_x):
 
     # 予測
     pred_list.append(model_xgb.predict(xgbtest))
-    
-    
+
     """
     # RandomForestモデルでの解析
     model_rdm = RandomForestRegressor(n_estimators=500, n_jobs=-1, max_depth=15)
@@ -952,17 +951,23 @@ for tr_idx, va_idx in kf.split(train_x):
     # 予測
     pred_list.append(model_rdm.predict(test_x))
     """
-    
+
     # 加重平均を求めるための重さを設定
-    if rmse_lgb > rmse_xgb: 
-       va_weight_list.append(0)
-       va_weight_list.append(1)
+    if rmse_lgb > rmse_xgb:
+        va_weight_list.append(0)
+        if rmse_xgb > 0.15:
+            va_weight_list.append(0)
+        else:
+            va_weight_list.append(1)
     else:
-       va_weight_list.append(1)
-       va_weight_list.append(0)
+        if rmse_lgb > 0.15:
+            va_weight_list.append(0)
+        else:
+            va_weight_list.append(1)
+        va_weight_list.append(0)
 
     print(f'RMSE:LightGBM {rmse_lgb:.4f} ,XGBoost {rmse_xgb:.4f}')
-        
+
     """
     if rmse_lgb > rmse_xgb:
         if rmse_lgb > rmse_rdm:
