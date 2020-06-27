@@ -20,6 +20,7 @@ RUN conda install --quiet --yes \
     'PyMySQL' \
     'sqlalchemy' \
     'tqdm' \
+    'optuna' \
     && \
     conda clean --all -f -y 
 
