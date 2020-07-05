@@ -26,7 +26,7 @@
 <img src="/Kaggle/PredictFutureSales/images/open_googledrive.jpg" width="800">
 
 ### notebookの保存の仕方
-
+左上の「ファイル」から「GitHubにコピーを保存」を選択し、notebookを保存してください。
 
 ### notebookの追加の仕方
 Colab上からnotebookの追加はうまくいかないので、notebookをローカルにダウンロードし、SourceTree等からGithubにpushしてください。  
