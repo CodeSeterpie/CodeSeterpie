@@ -13,10 +13,10 @@
 * みんなで解決します
 
 ## Menu
-* [活動記録](https://github.com/CodeSeterpie/CodeSeterpie/wiki)  
-  これまでに開催した会ごとのKaggleスコア、考察、課題等をまとめています。
 * [First Setp](https://github.com/CodeSeterpie/CodeSeterpie/wiki/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)  
   各プロジェクトに初めて参加するときに、読んでおいて欲しいことをまとめています。
+* [活動記録](https://github.com/CodeSeterpie/CodeSeterpie/wiki)  
+  これまでに開催した会ごとのKaggleスコア、考察、課題等をまとめています。
 * [Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)  
   課題、質問、やってみたい事はここから挙げてください。
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
