@@ -13,16 +13,14 @@
 * みんなで解決します
 
 ## Menu
-* [活動記録](https://codeseterpie.github.io/)  
+* [活動記録](https://github.com/CodeSeterpie/CodeSeterpie/wiki)  
   これまでに開催した会ごとのKaggleスコア、考察、課題等をまとめています。
-* [環境構築](https://github.com/CodeSeterpie/CodeSeterpie/wiki/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)  
-  実際にデータ分析を行うために必要なDocker、JupyterLabなどの実行環境の構築手順をまとめています。
+* [First Setp](https://github.com/CodeSeterpie/CodeSeterpie/wiki/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89)  
+  各プロジェクトに初めて参加するときに、読んでおいて欲しいことをまとめています。
 * [Issues](https://github.com/CodeSeterpie/CodeSeterpie/issues)  
   課題、質問、やってみたい事はここから挙げてください。
 * [Projects](https://github.com/CodeSeterpie/CodeSeterpie/projects)  
   現在の目標とそれに対する課題を管理しています。
-* [Insights](https://github.com/CodeSeterpie/CodeSeterpie/pulse)  
-  このGithubページの動き(commits、pull requests、issuesの更新状況のサマリー)を見ることができます。
 
 ## ソース変更の方法
 ソースの変更はdevelopブランチに直接pushしてもらって構いません。  
