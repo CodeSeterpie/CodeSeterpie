@@ -1,0 +1,26 @@
+version: "3"
+services:
+    # コンテナの名称を設定
+    pyexcel:
+        # イメージ名を明示的に指定する
+        image:
+           pyexcel 
+        # コンテナ名を明示的に指定する
+        container_name:
+           pyexcel 
+        # 同じフォルダにあるDockerfileをビルドする。
+        build: 
+            ./docker/
+        # マウントするフォルダを設定。
+        volumes:
+            # 現在のフォルダをDockerコンテナ上のcodeフォルダに紐づける。 
+            - ./:/code
+        # コンテナ内の初期ディレクトリを設定
+        working_dir: 
+            /code
+        # コンテナ内のTime zoneを日本時間に設定
+        environment:
+            - "TZ=Japan"        
+        # コンテナを起動させ続ける設定
+        tty:
+            true
