@@ -13,8 +13,8 @@ services:
             ./docker/
         # マウントするフォルダを設定。
         volumes:
-            # 現在のフォルダをDockerコンテナ上のcodeフォルダに紐づける。 
-            - ./:/code
+            # codeフォルダをDockerコンテナ上のcodeフォルダに紐づける。 
+            - ./code:/code
         # コンテナ内の初期ディレクトリを設定
         working_dir: 
             /code
